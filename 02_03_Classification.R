@@ -4,10 +4,10 @@
 #Install additional packages
 #install.packages("randomForest")
 library(randomForest)
+library(raster)
+img <- brick("LS8_Bonn_SC20200925100850.tif")
 
 #Working directory
-setwd("~/R-Kurs_WiSe2021-2022_Spatial_Analysis/Data")
-
 getwd()
 
 dir()
@@ -19,6 +19,7 @@ summary(smp$cl)
 
 #Down-Sampling via minority class 
 smp.size <- rep(min(summary(smp$cl)), nlevels(smp$cl))
+
 smp.size
 
 help(tuneRF)
@@ -26,7 +27,7 @@ rfmodel <- tuneRF(x = smp[-ncol(smp)],
                   y = smp$cl,
                   sampsize = smp.size,
                   strata = smp$cl,
-                  ntree = 250,
+                  ntree = 1000,
                   importance = TRUE,
                   doBest = TRUE,
                   plot = TRUE
@@ -48,6 +49,7 @@ save(rfmodel, file = "rfmodel.RData")
 load("rfmodel.RData")
 
 #Predict all pixels/run classification
+help(predict)
 result <- predict(img,
                   rfmodel,
                   filename = "RF_classification.tif",
