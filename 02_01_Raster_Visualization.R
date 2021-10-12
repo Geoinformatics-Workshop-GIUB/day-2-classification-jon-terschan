@@ -5,7 +5,7 @@
 library(raster)
 
 #Working directory
-setwd("~/Studium_nicht_Sciebo/RSRG/Teaching_material/Data")
+setwd("D:/LULC_in_R_WiSe2122_repos")
 
 img <- brick("LC081960252020091901RT-SC20200925100850.tif")
 img
@@ -33,12 +33,13 @@ writeRaster(img.subset_vis,
 
 #Plot histogram/distribution
 green <- img.subset_vis[[3]]
-
-hist(green,
+red <- img.subset_vis[[4]]
+NIR <- img.subset_vis[[5]]
+hist(NIR,
      breaks = 200,
      xlim = c(0, 1500),
      ylim = c(0, 15000),
      xlab = "band 3 reflectance value [DN * 0.01]",
      ylab = "frequency",
-     main = "histogram L8 band 3 (green)"
+     main = "histogram L8 band 4 (red)"
 )
