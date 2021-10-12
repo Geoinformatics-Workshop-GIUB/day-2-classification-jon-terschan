@@ -6,14 +6,14 @@
 library(raster)
 
 #Working directory
-setwd("D:/R-Kurs_WiSe2122/R-Kurs_WiSe2021-2022_Spatial_Analysis/Data")
+setwd("D:/LULC_in_R_WiSe2122_repos")
 
 getwd()
 
 dir()
 
 #Import LS8 subset
-img <- brick("D:/R-Kurs_WiSe2122/R-Kurs_WiSe2021-2022_Spatial_Analysis/Data/Landsat_8_all/LC081960252020091901RT-SC20200925100850.tif")
+img <- brick("LC081970242020052101T1-SC20200925100911.tif")
 img
 
 #Import shapefile containing training data
@@ -55,7 +55,7 @@ load(file = "smp.rda")
 summary(smp$cl)
 
 #Aggregate cl-column 
-sp <- aggregate( . ~ cl, data = smp, FUN = mean, na.rm = TRUE )
+sp <- aggregate( . ~ cl, data = smp, FUN = min, na.rm = TRUE )
 
 #Plot empty plot of a defined size
 plot(0,
